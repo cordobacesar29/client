@@ -63,7 +63,6 @@ const Customizer = () => {
       });
 
       const data = await response.json();
-      console.log(data)
       if(data) handleDecals(type, `data:image/png;base64,${data.photo}`);
     } catch (error) {
       alert(error);
@@ -113,6 +112,12 @@ const Customizer = () => {
     });
   };
 
+  const handleEditorTab = (tabName) => {
+    if(tabName === activeEditorTab) {
+      return setActiveEditorTab("")
+    }
+    return setActiveEditorTab(tabName)
+  }
   return (
     <AnimatePresence>
       {!snap.intro && (
@@ -128,7 +133,7 @@ const Customizer = () => {
                   <Tab
                     key={tab.name}
                     tab={tab}
-                    handleClick={() => setActiveEditorTab(tab.name)}
+                    handleClick={() => handleEditorTab(tab.name)}
                   />
                 ))}
                 {generateTabContent()}
